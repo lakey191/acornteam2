@@ -1,0 +1,56 @@
+
+★★★★★사용★★★★★★(사용자)
+- client.py 실행
+ * 하기 과정 자동 실행됨(client_py사용하기.pptx 참조)
+ 1) make_set_hand 설정 (오른손등 전체가 네모난 초록박스 전부 가리게)
+ -> 'c':손 색상 인식 -> 's' : 손 색상 hist 저장(hist파일 있을 경우 별도 실행안됨)
+
+ 2) recognize_gesture 통해서 인식진행
+ : recognize(model) 에 있는 time.sleep(0.1초)를 통해서 시간조절가능
+  * 단 인식박스에 오른손 색상을 인식하므로 다른 신체부위나 손과 매우 유사한 색상이 있으면 안됨
+ -> 'q': 종료
+ 
+
+ ※ 사전에 준비물
+ - 가상환경 requirements_prj.txt 설정 필요
+ 0) client.py(실행본)
+ 1) gesture_db.db(제스처 테이블 저장/0:up,1:down,2:right,3:left,4:stop)db 저장필요
+ 2) cnn_model_keras2.h5(훈련 모델)
+ 3) make_set_hand.py(손등색 인식 모듈)
+ 4) recognize_gesture(제스처 인식 모듈)
+ * hist (client.py를 통해 생성 예정) ->db 저장필요
+
+
+
+★★★★★준비과정★★★★(개발자)
+1. make_set_hand통해서 스킨색 정규화(골고루)된거 hist.pickle에 저장
+ - c 누르고 s로 저장
+ 손등이 모든 사각형을 덮는지 확인하십시오.
+2. make_dataset 통해서 훈련 이미지 만들기(윤곽선으로 5000장)
+3. make_flip_img 통해서 좌우반전 해주기
+4. make_train_test_labels 통해서 훈련, 테스트, 평가할 이미지들 무작위 나눠서 pickle에 저장해주기
+5. show_all_gestures 5가지 이미지 보여주기
+6. run_model.py를 통해 keras로 학습
+
+## Requirements(env) _requirements_prj.txt 설치
+pip install -r requirements_prj.txt
+1. Python 3.7
+2. Tensorflow 1.5
+2. keras
+3. OpenCV 3.4
+4. h5py
+5. pyttsx3
+6. numpy
+7. pyautogui
+8. pygame
+
+## What I Did
+1. 데이터셋 만들기 
+ 1) 5 gesture samples using OpenCV. 
+ 2) *5000ea (each gesture, 50*50px) captured
+ 3)  saved at each folder
+ 4) 좌우반전
+2. CNN 만들기
+3. train(keras)
+
+
