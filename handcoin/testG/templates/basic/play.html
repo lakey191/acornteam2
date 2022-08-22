@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <div class="gameMachine">
+        <div class="gameTitle">
+            <h3>+ + + + + + + {{ games1.title }} + + + + + + +</h3>
+        </div>
+        <div class="gameDisplay_wrap">
+            <div class="gameDisplay">
+
+                <p>
+                    <a href="/{{games1.image}}" class="start" style="text-decoration: none;"> START!</a>
+                </p>
+            </div>
+        </div>
+        <div class="gameBody">               
+            <div class="gamebutton_wrap">
+                <div class="stick">
+                    <div class="stick1"></div>
+                    <div class="stick2"></div>
+                </div>
+                <div class="button button_red"></div>
+                <div class="button button_blue"></div>
+            </div>
+            <div class="gamebutton_wrap">
+                <div class="stick">
+                    <div class="stick1"></div>
+                    <div class="stick2"></div>
+                </div>
+                <div class="button button_red"></div>
+                <div class="button button_blue"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        <div class="gameInfo">
+            <p class="gameInfo_title">-- 게임소개 --</p>
+            <p class="gameInfo">{{ games1.info }}</p>
+        </div>
+        <div class="userDisplay"></div>
+        <div class="howToplay">
+            <p class="howToplay_title">-- 손동작 조작 설명서 --</p>
+            <ul class="gesture">
+                <li>
+                    <div></div>
+                    <p>상</p>
+                </li>
+                <li>
+                    <div></div>
+                    <p>하</p>
+                </li>
+                <li>
+                    <div></div>
+                    <p>좌</p>
+                </li>
+                <li>
+                    <div></div>
+                    <p>우</p>
+                </li>
+                <li>
+                    <div></div>
+                    <p>멈춤</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}
+

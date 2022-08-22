@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="game_main">
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {% for i in games%}
+            <div class="swiper-slide">
+                <a class = "gameMachine_wrap" href="/play/{{ i.title }}" style="text-decoration: none;">
+                    <div class="game_title">
+                        <h1>+ + + + + + {{ i.title }} + + + + + +</h1>
+                    </div>
+                    <div class = "game_thumbnail_wrap">
+                        <img class ="game_thumbnail_img" src="../../../../static/image/{{ i.image }}.png"></img>
+                    </div>
+                    <div class = "game_controll">
+                        <div class = "game_1p">
+                            <div class="game_stick">
+                                <div class = "game_stick_head"></div>
+                                <div class = "game_stick_body"></div>
+                            </div>
+                            <div class = "button_wrap">
+                                <div class = "button_left"></div>
+                                <div class = "button_right"></div>
+                            </div>
+                        </div>
+    
+                        <div class = "game_1p">
+                            <div class="game_stick">
+                                <div class = "game_stick_head"></div>
+                                <div class = "game_stick_body"></div>
+                            </div>
+                            <div class = "button_wrap">
+                                <div class = "button_left"></div>
+                                <div class = "button_right"></div>
+                            </div>
+                        </div>                                        
+                    </div>
+                    <div class = "game_chair_wrap">
+                        <div class="chair">
+                            <div class = "chair_body"></div>
+                            <div class = "chair_leg"></div>
+                        </div>
+                        <div class="chair">
+                            <div class = "chair_body"></div>
+                            <div class = "chair_leg"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-prev">◀</div>
+    <div class="swiper-next">▶</div>
+
+</main>
+<script>
+    new Swiper('.game_main .swiper-container', {
+        slidesPerView : 3, // 한번에 보여줄 슬라이드 개수
+        spaceBetween : 10, // 슬라이드 사이 여백
+        centeredSlides : true, // 1번 슬라이드가 가운데 보이기
+        loop : true,
+        pagination : {
+            el : '.game_main .swiper-pagination', // 페이지 번호 요소 선택자
+            clickable : true // 사용자의 페이지 번호 요소 제어 가능 여부
+        },
+        navigation : {
+            prevEl : '.game_main .swiper-prev',
+            nextEl : '.game_main .swiper-next'
+        }
+    })
+</script>
+{% endblock %}
