@@ -9,6 +9,5 @@ urlpatterns = [
     path("snake", views.snake, name='snake'),
     path("plane", views.plane, name='plane'),
     path("bricksbreak", views.bricksbreak, name='bricksbreak'),
-    path("tetris", views.tetris, name='tetris'),
-    path("packman", views.packman, name='packman'),
+    path("dino", views.dino, name='dino'),
 ]

@@ -10,11 +10,12 @@ from time import sleep
 # 모든 게임 수정
 
 games = [
-  {'title':'테트리스', 'image':'tetris', 'info':'네개의 사각형으로 이뤄진 블록을 쌓는 게임이다.'},
-  {'title':'팩맨', 'image':'packman', 'info':'몬스터를 피해서 미로에 있는 쿠키를 먹는 게임이다.'},
+#   {'title':'테트리스', 'image':'tetris', 'info':'네개의 사각형으로 이뤄진 블록을 쌓는 게임이다.'},
+#   {'title':'팩맨', 'image':'packman', 'info':'몬스터를 피해서 미로에 있는 쿠키를 먹는 게임이다.'},
   {'title':'스네이크', 'image':'snake', 'info':'사과를 먹으며 뱀을 길게 만드는 게임이다.'},
-  {'title':'비행기', 'image':'plane', 'info':'장애물을 피해 날아가는 게임이다.'},
+  {'title':'비행기', 'image':'plane', 'info':'박쥐와 불덩이를 피해 날아가는 게임이다.'},
   {'title':'벽돌부수기', 'image':'bricksbreak', 'info':'벽돌을 부수는 게임이다.'},
+  {'title':'공룡 달리기', 'image':'dino', 'info':'선인장과 익룡을 피해 달리는 게임이다.'},
 ]
 
 def main(request):
@@ -84,7 +85,7 @@ def snake(request):
         playSurface.blit(GOsurf, GOrect) # bind the gameover text to the main surface
         showScore(0)
         pygame.display.flip() # to set the fps
-        time.sleep(5)
+        time.sleep(3)
         # pygame.quit() # exit game window
         
         # sys.exit() # exit cmd console
@@ -343,7 +344,7 @@ def plane(request):
         if x + 60 > bat_x:
             if (y > bat_y and y < 67) or (y + 45 > bat_y and y + 45 < bat_y + 67):
                 crash()
-                sleep(5)
+                sleep(3)
                 crashed = True
         if fire[1] != None:
             if fire[0] == 0:
@@ -357,7 +358,7 @@ def plane(request):
                 if (y > fire_y and y < fire_y + fireball_height) or \
                 (y + 45 > fire_y and y + 45 < fire_y + fireball_height):
                     crash()
-                    sleep(5)
+                    sleep(3)
                     crashed = True
 
         drawObject(aircraft, x, y)
@@ -568,353 +569,248 @@ def bricksbreak(request):
     context = {'games' : games}
     return render(request, 'basic/main.html', context)
 
-# 테트리스
-def tetris(request):
-    # 전역 변수
-    pygame.init()
-    smallfont = pygame.font.SysFont(None, 36)
-    largefont = pygame.font.SysFont(None, 72)
-
-    BLACK = (0,0,0)
-    pygame.key.set_repeat(30, 30)
-    SCREEN_WIDTH = 600
-    SCREEN_HEIGHT = 600
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock = pygame.time.Clock()
-    WIDTH = 12
-    HEIGHT = 22
-    INTERVAL = 40
-    # TODO : FILED값을 채운다.
-    FIELD = []
-    COLORS = ((0, 0, 0), (255, 165, 0), (0, 0, 255), (0, 255, 255), \
-            (0, 255, 0), (255, 0, 255), (255, 255, 0), (255, 0, 0), (128, 128, 128))
-    BLOCK = None
-    NEXT_BLOCK = None
-    PIECE_SIZE = 24 # 24 x 24
-    PIECE_GRID_SIZE = PIECE_SIZE+1 
-    BLOCK_DATA = (
-        (
-            (0, 0, 1, \
-            1, 1, 1, \
-            0, 0, 0),
-            (0, 1, 0, \
-            0, 1, 0, \
-            0, 1, 1),
-            (0, 0, 0, \
-            1, 1, 1, \
-            1, 0, 0),
-            (1, 1, 0, \
-            0, 1, 0, \
-            0, 1, 0),
-        ), (
-            (2, 0, 0, \
-            2, 2, 2, \
-            0, 0, 0),
-            (0, 2, 2, \
-            0, 2, 0, \
-            0, 2, 0),
-            (0, 0, 0, \
-            2, 2, 2, \
-            0, 0, 2),
-            (0, 2, 0, \
-            0, 2, 0, \
-            2, 2, 0)
-        ), (
-            (0, 3, 0, \
-            3, 3, 3, \
-            0, 0, 0),
-            (0, 3, 0, \
-            0, 3, 3, \
-            0, 3, 0),
-            (0, 0, 0, \
-            3, 3, 3, \
-            0, 3, 0),
-            (0, 3, 0, \
-            3, 3, 0, \
-            0, 3, 0)
-        ), (
-            (4, 4, 0, \
-            0, 4, 4, \
-            0, 0, 0),
-            (0, 0, 4, \
-            0, 4, 4, \
-            0, 4, 0),
-            (0, 0, 0, \
-            4, 4, 0, \
-            0, 4, 4),
-            (0, 4, 0, \
-            4, 4, 0, \
-            4, 0, 0)
-        ), (
-            (0, 5, 5, \
-            5, 5, 0, \
-            0, 0, 0),
-            (0, 5, 0, \
-            0, 5, 5, \
-            0, 0, 5),
-            (0, 0, 0, \
-            0, 5, 5, \
-            5, 5, 0),
-            (5, 0, 0, \
-            5, 5, 0, \
-            0, 5, 0)
-        ), (
-            (6, 6, \
-            6, 6),
-            (6, 6, \
-            6, 6),
-            (6, 6, \
-            6, 6),
-            (6, 6, \
-            6, 6)
-        ), (
-            (0, 7, 0, 0, \
-            0, 7, 0, 0, \
-            0, 7, 0, 0, \
-            0, 7, 0, 0),
-            (0, 0, 0, 0, \
-            7, 7, 7, 7, \
-            0, 0, 0, 0, \
-            0, 0, 0, 0),
-            (0, 0, 7, 0, \
-            0, 0, 7, 0, \
-            0, 0, 7, 0, \
-            0, 0, 7, 0),
-            (0, 0, 0, 0, \
-            0, 0, 0, 0, \
-            7, 7, 7, 7, \
-            0, 0, 0, 0)
-        )
-    )
-
-    class Block:
-        """ 블록 객체 """
-        def __init__(self, count):
-            self.turn = randint(0,3)
-            self.type = BLOCK_DATA[randint(0, 6)]
-            self.data = self.type[self.turn]
-            self.size = int(sqrt(len(self.data)))
-            self.xpos = randint(2, 8 - self.size)
-            self.ypos = 1 - self.size
-            self.fire = count + INTERVAL
-
-        def update(self, count):
-            """ 블록 상태 갱신 (소거한 단의 수를 반환한다) """
-            # 아래로 충돌?
-            erased = 0
-            if is_overlapped(self.xpos, self.ypos + 1, self.turn):
-                for y_offset in range(BLOCK.size):
-                    for x_offset in range(BLOCK.size):
-                        index = y_offset * self.size + x_offset
-                        val = BLOCK.data[index]
-                        if 0 <= self.ypos+y_offset < HEIGHT and \
-                        0 <= self.xpos+x_offset < WIDTH and val != 0:
-                                FIELD[self.ypos+y_offset][self.xpos+x_offset] = val ## 값을 채우고, erase_line()을 통해 삭제되도록 한다.
-
-                erased = erase_line()
-                go_next_block(count)
-
-            if self.fire < count:
-                self.fire = count + INTERVAL
-                self.ypos += 1
-            return erased
-
-        def draw(self):
-            """ 블록을 그린다 """
-            ## 블록의 조각(piece)의 데이터를 구한다.
-            for y_offset in range(self.size):
-                for x_offset in range(self.size):
-                    index = y_offset * self.size + x_offset
-                    val = self.data[index]
-                    if 0 <= y_offset + self.ypos < HEIGHT and \
-                    0 <= x_offset + self.xpos < WIDTH and val != 0:
-                        ## f_xpos = filed에서의 xpos를 계산함
-                        f_xpos = PIECE_GRID_SIZE + (x_offset + self.xpos) * PIECE_GRID_SIZE
-                        f_ypos = PIECE_GRID_SIZE + (y_offset + self.ypos) * PIECE_GRID_SIZE
-                        pygame.draw.rect(screen, COLORS[val],
-                                        (f_xpos, 
-                                        f_ypos, 
-                                        PIECE_SIZE, 
-                                        PIECE_SIZE))
-
-    def erase_line():
-        """ 행이 모두 찬 단을 지운다. 그리고, 소거한 단의 수를 반환한다 """
-        erased = 0
-        ypos = HEIGHT-2
-        # print(FIELD[ypos])
-        while ypos >=0:
-            if  all(FIELD[ypos]) == True:
-                del FIELD[ypos]
-                FIELD.insert(0, [8, 0,0,0,0,0,0,0,0,0,0 ,8])
-                erased += 1
-            else:
-                ypos -= 1
-        return erased
-
-    def is_game_over():
-        """ 게임 오버인지 아닌지 """
-        filled = 0
-        for cell in FIELD[0]:
-            if cell != 0:
-                filled += 1
-        return filled > 2
-
-    def go_next_block(count):
-        """ 블록을 생성하고, 다음 블록으로 전환한다 """
-        global BLOCK, NEXT_BLOCK
-        BLOCK = NEXT_BLOCK if NEXT_BLOCK != None else Block(count)
-        NEXT_BLOCK = Block(count)
-
-    def is_overlapped(xpos, ypos, turn):
-        """ 블록이 벽이나 땅의 블록과 충돌하는지 아닌지 """
-        data = BLOCK.type[turn]
-        for y_offset in range(BLOCK.size):
-            for x_offset in range(BLOCK.size):
-                index = y_offset * BLOCK.size + x_offset
-                val = data[index]
-
-                if 0 <= xpos+x_offset < WIDTH and \
-                    0 <= ypos+y_offset < HEIGHT:
-                    if val != 0 and \
-                        FIELD[ypos+y_offset][xpos+x_offset] != 0:
-                        return True
-        return False
-
-    def set_game_field():
-        """ 필드 구성을 위해 FIELD 값을 세팅한다. """
-        for i in range(HEIGHT-1):
-            FIELD.insert(0, [8, 0,0,0,0,0,0,0,0,0,0 ,8])
-        
-        FIELD.insert(HEIGHT-1, [8, 8,8,8,8,8,8,8,8,8,8 ,8])
-        #print(FIELD)
-        
-        
-    def draw_game_field():
-        """ 필드를 그린다 """
-        for y_offset in range(HEIGHT):
-            for x_offset in range(WIDTH):
-                val = FIELD[y_offset][x_offset]
-                color = COLORS[val]
-                pygame.draw.rect(screen, 
-                                color,
-                                (PIECE_GRID_SIZE + x_offset*PIECE_GRID_SIZE, 
-                                PIECE_GRID_SIZE + y_offset*PIECE_GRID_SIZE , 
-                                PIECE_SIZE , 
-                                PIECE_SIZE ))
-
-    def draw_current_block():
-        BLOCK.draw()
-
-    def draw_next_block():
-        """ 다음 블록을 그린다 """
-        ## 블록의 조각(piece)의 데이터를 구한다.
-        for y_offset in range(NEXT_BLOCK.size):
-            for x_offset in range(NEXT_BLOCK.size):
-                index = y_offset * NEXT_BLOCK.size + x_offset
-                val = NEXT_BLOCK.data[index]
-                #if 0 <= y_offset + self.ypos < HEIGHT and \
-                #   0 <= x_offset + self.xpos < WIDTH and 
-                if val != 0: ## 이 조건은 중요함! 0까지 그림을 그린다면, 쌓인 블록이 순간적으로 검정색이 됨.
-                    ## f_xpos = filed에서의 xpos를 계산함
-                    f_xpos = 460 + (x_offset) * PIECE_GRID_SIZE
-                    f_ypos = 100 + (y_offset) * PIECE_GRID_SIZE
-                    pygame.draw.rect(screen, COLORS[val],
-                                    (f_xpos, 
-                                    f_ypos, 
-                                    PIECE_SIZE, 
-                                    PIECE_SIZE))
-
-    def draw_score(score):
-        """ 점수를 표시한다. """
-        score_str = str(score).zfill(6)
-        score_image = smallfont.render(score_str, True, (0, 255, 0))
-        screen.blit(score_image, (500, 30))
-
-    def draw_gameover_message():
-        """ 'Game Over' 문구를 표시한다 """
-        message_over = largefont.render("GAME OVER!!", True, (0, 255, 255))
-        message_rect = message_over.get_rect()
-        message_rect.center = (300, 300)
-        screen.blit(message_over, message_rect)
-        pass
-
-    """ 메인 루틴 """
-    # global INTERVAL
-    count = 0
-    score = 0
-    game_over = False
-    
-    go_next_block(INTERVAL)
-
-    set_game_field()
-
+# 공룡 달리기   
+def dino(request):
     context = {'games' : games}
-    while True:
-        clock.tick(10)
-        screen.fill(BLACK)
 
-        key = None
+    pygame.init()
+    screen = pygame.display.set_mode((1280, 720))
+    clock = pygame.time.Clock()
+    pygame.display.set_caption("Dino Game")
+
+    game_font = pygame.font.SysFont(None, 24)
+
+    class Cloud(pygame.sprite.Sprite):
+        def __init__(self, image, x_pos, y_pos):
+            super().__init__()
+            self.image = image
+            self.x_pos = x_pos
+            self.y_pos = y_pos
+            self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+
+        def update(self):
+            self.rect.x -= 1
+
+    class Dino(pygame.sprite.Sprite):
+        def __init__(self, x_pos, y_pos):
+            super().__init__()
+            self.running_sprites = []
+            self.ducking_sprites = []
+
+            self.running_sprites.append(pygame.transform.scale(
+                pygame.image.load("./static/image/assets/Dino1.png"), (80, 100)))
+            self.running_sprites.append(pygame.transform.scale(
+                pygame.image.load("./static/image/assets/Dino2.png"), (80, 100)))
+
+            self.ducking_sprites.append(pygame.transform.scale(
+                pygame.image.load(f"./static/image/assets/DinoDucking1.png"), (110, 60)))
+            self.ducking_sprites.append(pygame.transform.scale(
+                pygame.image.load(f"./static/image/assets/DinoDucking2.png"), (110, 60)))
+
+            self.x_pos = x_pos
+            self.y_pos = y_pos
+            self.current_image = 0
+            self.image = self.running_sprites[self.current_image]
+            self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+            self.velocity = 50
+            self.gravity = 4.5
+            self.ducking = False
+
+        def jump(self):
+            if self.rect.centery >= 360:
+                while self.rect.centery - self.velocity > 40:
+                    self.rect.centery -= 1
+
+        def duck(self):
+            self.ducking = True
+            self.rect.centery = 380
+
+        def unduck(self):
+            self.ducking = False
+            self.rect.centery = 360
+
+        def apply_gravity(self):
+            if self.rect.centery <= 360:
+                self.rect.centery += self.gravity
+
+        def update(self):
+            self.animate()
+            self.apply_gravity()
+
+        def animate(self):
+            self.current_image += 0.05
+            if self.current_image >= 2:
+                self.current_image = 0
+
+            if self.ducking:
+                self.image = self.ducking_sprites[int(self.current_image)]
+            else:
+                self.image = self.running_sprites[int(self.current_image)]
+
+    class Cactus(pygame.sprite.Sprite):
+        def __init__(self, x_pos, y_pos):
+            super().__init__()
+            self.x_pos = x_pos
+            self.y_pos = y_pos
+            self.sprites = []
+            for i in range(1, 7):
+                current_sprite = pygame.transform.scale(
+                    pygame.image.load(f"./static/image/assets/cacti/cactus{i}.png"), (70, 70))
+                self.sprites.append(current_sprite)
+            self.image = random.choice(self.sprites)
+            self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+
+        def update(self):
+            self.x_pos -= game_speed
+            self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+
+    class Ptero(pygame.sprite.Sprite):
+        def __init__(self):
+            super().__init__()
+            self.x_pos = 1300
+            self.y_pos = random.choice([280, 295, 350])
+            self.sprites = []
+            self.sprites.append(
+                pygame.transform.scale(
+                    pygame.image.load("./static/image/assets/Ptero1.png"), (76, 55)))
+            self.sprites.append(
+                pygame.transform.scale(
+                    pygame.image.load("./static/image/assets/Ptero2.png"), (76, 55)))
+            self.current_image = 0
+            self.image = self.sprites[self.current_image]
+            self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+
+        def update(self):
+            self.animate()
+            self.x_pos -= game_speed
+            self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+
+        def animate(self):
+            self.current_image += 0.025
+            if self.current_image >= 2:
+                self.current_image = 0
+            self.image = self.sprites[int(self.current_image)]
+
+    # Variables
+    game_speed = 4
+    jump_count = 10
+    player_score = 0
+    game_over = False
+    obstacle_timer = 0
+    obstacle_spawn = False
+    obstacle_cooldown = 1000
+
+    # Surfaces
+    ground = pygame.image.load("./static/image/assets/ground.png")
+    ground = pygame.transform.scale(ground, (1280, 20))
+    ground_x = 0
+    ground_rect = ground.get_rect(center=(640, 400))
+    cloud = pygame.image.load("./static/image/assets/cloud.png")
+    cloud = pygame.transform.scale(cloud, (200, 80))
+
+    # Groups
+    cloud_group = pygame.sprite.Group()
+    obstacle_group = pygame.sprite.Group()
+    dino_group = pygame.sprite.GroupSingle()
+    ptero_group = pygame.sprite.Group()
+
+    # Objects
+    dinosaur = Dino(50, 360)
+    dino_group.add(dinosaur)
+
+    # Events
+    CLOUD_EVENT = pygame.USEREVENT
+    pygame.time.set_timer(CLOUD_EVENT, 3000)
+
+    # Functions
+    def end_game():
+        # global player_score, game_speed
+        game_over_text = game_font.render("Game Over!", True, "black")
+        game_over_rect = game_over_text.get_rect(center=(640, 300))
+        score_text = game_font.render(f"Score: {int(player_score)}", True, "black")
+        score_rect = score_text.get_rect(center=(640, 340))
+        screen.blit(game_over_text, game_over_rect)
+        screen.blit(score_text, score_rect)
+        game_speed = 4
+        cloud_group.empty()
+        obstacle_group.empty()
+
+    while True:
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            dinosaur.duck()
+        else:
+            if dinosaur.ducking:
+                dinosaur.unduck()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()                
-                # return render(request, 'basic/main.html', context)
-            elif event.type == pygame.KEYDOWN:
-                key = event.key
-            elif event.type == pygame.KEYUP:
-                key = None
+                # sys.exit()
+                return render(request, 'basic/main.html', context)
+            if event.type == CLOUD_EVENT:
+                current_cloud_y = random.randint(50, 300)
+                current_cloud = Cloud(cloud, 1380, current_cloud_y)
+                cloud_group.add(current_cloud)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE or event.key == pygame.K_UP:
+                    dinosaur.jump()
+                    if game_over:
+                        game_over = False
+                        game_speed = 4
+                        player_score = 0
 
-        game_over = is_game_over()
-        if not game_over:
-            count += 5
-            if count % 1000 == 0:
-                INTERVAL = max(1, INTERVAL - 2)
-            erased = BLOCK.update(count)
+        screen.fill("white")
 
-            if erased > 0:
-                score += (2 ** erased) * 100
-
-            # 키 이벤트 처리
-            next_x, next_y, next_t = \
-                BLOCK.xpos, BLOCK.ypos, BLOCK.turn
-            if key == pygame.K_UP:
-                next_t = (next_t + 1) % 4
-            elif key == pygame.K_RIGHT:
-                next_x += 1
-            elif key == pygame.K_LEFT:
-                next_x -= 1
-            elif key == pygame.K_DOWN:
-                next_y += 1
-
-            if not is_overlapped(next_x, next_y, next_t):
-                BLOCK.xpos = next_x
-                BLOCK.ypos = next_y
-                BLOCK.turn = next_t
-                BLOCK.data = BLOCK.type[BLOCK.turn]
-
-        # 게임필드 그리기
-        draw_game_field()
-
-        # 낙하 중인 블록 그리기
-        draw_current_block()
-
-        # 다음 블록 그리기
-        draw_next_block()
-        
-        # 점수 나타내기
-        draw_score(score)
-        
-        # 게임 오버 메시지 
+        # Collisions
+        if pygame.sprite.spritecollide(dino_group.sprite, obstacle_group, False):
+            game_over = True
+            
         if game_over:
-            draw_gameover_message()
+            end_game()
 
+        if not game_over:
+            game_speed += 0.0015
+
+            if pygame.time.get_ticks() - obstacle_timer >= obstacle_cooldown:
+                obstacle_spawn = True
+
+            if obstacle_spawn:
+                obstacle_random = random.randint(1, 50)
+                if obstacle_random in range(1, 7):
+                    new_obstacle = Cactus(1280, 340)
+                    obstacle_group.add(new_obstacle)
+                    obstacle_timer = pygame.time.get_ticks()
+                    obstacle_spawn = False
+                elif obstacle_random in range(7, 10):
+                    new_obstacle = Ptero()
+                    obstacle_group.add(new_obstacle)
+                    obstacle_timer = pygame.time.get_ticks()
+                    obstacle_spawn = False
+
+            player_score += 0.1
+            player_score_surface = game_font.render(
+                str(int(player_score)), True, ("black"))
+            screen.blit(player_score_surface, (1150, 10))
+
+            cloud_group.update()
+            cloud_group.draw(screen)
+
+            ptero_group.update()
+            ptero_group.draw(screen)
+
+            dino_group.update()
+            dino_group.draw(screen)
+
+            obstacle_group.update()
+            obstacle_group.draw(screen)
+
+            ground_x -= game_speed
+
+            screen.blit(ground, (ground_x, 360))
+            screen.blit(ground, (ground_x + 1280, 360))
+
+            if ground_x <= -1280:
+                ground_x = 0
+
+        clock.tick(120)
         pygame.display.update()
-
-    pygame.quit()
-
-    return render(request, 'basic/main.html', context)
-
-# 팩맨
-def packman(request):
-    context = {'games' : games}
-    return render(request, 'basic/main.html', context)
