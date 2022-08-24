@@ -1,0 +1,159 @@
+$machineSize : 670px;
+
+@font-face {
+    font-family: "DungGeunMo";
+    src: url("/static/font/DungGeunMo.woff") format('woff');
+}
+
+
+
+/* main */
+.gameMachine {
+    width: $machineSize;
+    border-radius: 10px;
+    background-color: rgb(0, 11, 92);
+    padding: 10px;
+    margin-top: 60px;
+    .gameTitle {
+        height: 54px;
+        border-radius: 5px;
+        border: 3px solid rgb(2, 255, 204);
+        background-color: rgb(5, 10, 48);
+        margin-bottom: 35px;
+        h3 {
+            font-size: 30px;
+            color: rgb(255, 230, 2);
+            line-height: 54px;
+        }
+    }
+    .gameDisplay_wrap {
+        width: 580px;
+        height: 380px;
+        padding: 20px;
+        border-radius: 15px;
+        border: 4px solid rgb(48, 105, 94);
+        background-color: rgb(33, 31, 40);
+        margin: auto;
+        margin-bottom: 15px;
+        .gameDisplay {
+            width: 580px;
+            height: 380px;
+            background-color: #000;
+            .start {
+                margin-top: 200px;
+                color: #fff;
+                font-size: 80px;
+            }
+        }
+    }
+    .gameBody {
+        display: flex;
+        .gamebutton_wrap {
+            width: ($machineSize / 2) - 30px;
+            height: 80px;
+            display: flex;
+            padding-left: 30px;
+            // background-color: #fff;
+            .stick {
+                position: relative;
+                .stick1{
+                    position: absolute;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background-color: rgb(0, 184, 15);
+                    z-index: 1;
+                }
+                .stick2 {
+                    position: absolute;
+                    margin-top: 20px;
+                    margin-left: 15px;
+                    width: 10px;
+                    height: 50px;
+                    border-radius: 0 0 5px 5px;
+                    background-color: rgb(91, 91, 91);
+                    
+                }
+            }
+            .button {
+                position: absolute;
+                width:75px;
+                height:45px;
+                border-radius:50% / 50%;
+                border: #fff solid 7px;
+                margin-top: 10px;
+            }
+            .button_red {
+                background:red;
+                margin-left: 60px;
+            }
+            .button_blue {
+                background:blue;
+                margin-left: 170px;
+            }
+        }
+    }
+}
+
+.info {
+    position: absolute;
+    right: 0px;
+    width: 260px;
+    height: 600px;
+    border-radius: 10px;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: rgb(16, 17, 24);
+    .gameInfo {
+        margin-bottom: 20px;            
+        .gameInfo_title {
+            margin-bottom: 10px;
+            color: rgb(255, 230, 2);
+        }
+        .gameInfo {
+            font-size: 13px;
+            line-height: 20px;
+        }
+        p {
+            color: #fff;
+        }
+    }
+    .userDisplay {
+        height: 180px;
+        background-color: rgba(176, 176, 176, 0.2);
+    }
+    .howToplay {
+        height: 280px;
+        margin-top: 20px;
+        border-radius: 10px;
+        border: 1px dashed #fff;
+        .howToplay_title {
+            color: rgb(255, 230, 2);
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .gesture {
+            display: flex;
+            flex-wrap : wrap;
+            li {
+                display: flex;
+                margin-top: 15px;
+                margin-left: 30px;
+                @for $i from 1 through 5 {
+                    &:nth-child(#{$i}) div{
+                        width: 55px;
+                        height: 55px;
+                        background-image: url('../image/hand#{$i}.png');
+                        background-position: center;
+                        background-size: cover;
+                    }
+                }
+                p {
+                    line-height: 55px;
+                    margin-left: 10px;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

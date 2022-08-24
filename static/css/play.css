@@ -1,0 +1,64 @@
+@font-face { font-family: "DungGeunMo"; src: url("/static/font/DungGeunMo.woff") format("woff"); }
+
+/* main */
+.gameMachine { width: 670px; border-radius: 10px; background-color: #000b5c; padding: 10px; margin-top: 60px; }
+
+.gameMachine .gameTitle { height: 54px; border-radius: 5px; border: 3px solid #02ffcc; background-color: #050a30; margin-bottom: 35px; }
+
+.gameMachine .gameTitle h3 { font-size: 30px; color: #ffe602; line-height: 54px; }
+
+.gameMachine .gameDisplay_wrap { width: 580px; height: 380px; padding: 20px; border-radius: 15px; border: 4px solid #30695e; background-color: #211f28; margin: auto; margin-bottom: 15px; }
+
+.gameMachine .gameDisplay_wrap .gameDisplay { width: 580px; height: 380px; background-color: #000; }
+
+.gameMachine .gameDisplay_wrap .gameDisplay .start { margin-top: 200px; color: #fff; font-size: 80px; }
+
+.gameMachine .gameBody { display: flex; }
+
+.gameMachine .gameBody .gamebutton_wrap { width: 305px; height: 80px; display: flex; padding-left: 30px; }
+
+.gameMachine .gameBody .gamebutton_wrap .stick { position: relative; }
+
+.gameMachine .gameBody .gamebutton_wrap .stick .stick1 { position: absolute; width: 40px; height: 40px; border-radius: 50%; background-color: #00b80f; z-index: 1; }
+
+.gameMachine .gameBody .gamebutton_wrap .stick .stick2 { position: absolute; margin-top: 20px; margin-left: 15px; width: 10px; height: 50px; border-radius: 0 0 5px 5px; background-color: #5b5b5b; }
+
+.gameMachine .gameBody .gamebutton_wrap .button { position: absolute; width: 75px; height: 45px; border-radius: 50% / 50%; border: #fff solid 7px; margin-top: 10px; }
+
+.gameMachine .gameBody .gamebutton_wrap .button_red { background: red; margin-left: 60px; }
+
+.gameMachine .gameBody .gamebutton_wrap .button_blue { background: blue; margin-left: 170px; }
+
+.info { position: absolute; right: 0px; width: 260px; height: 600px; border-radius: 10px; margin-top: 60px; padding: 20px; background-color: #101118; }
+
+.info .gameInfo { margin-bottom: 20px; }
+
+.info .gameInfo .gameInfo_title { margin-bottom: 10px; color: #ffe602; }
+
+.info .gameInfo .gameInfo { font-size: 13px; line-height: 20px; }
+
+.info .gameInfo p { color: #fff; }
+
+.info .userDisplay { height: 180px; background-color: rgba(176, 176, 176, 0.2); }
+
+.info .howToplay { height: 280px; margin-top: 20px; border-radius: 10px; border: 1px dashed #fff; }
+
+.info .howToplay .howToplay_title { color: #ffe602; margin-top: 15px; margin-bottom: 10px; }
+
+.info .howToplay .gesture { display: flex; flex-wrap: wrap; }
+
+.info .howToplay .gesture li { display: flex; margin-top: 15px; margin-left: 30px; }
+
+.info .howToplay .gesture li:nth-child(1) div { width: 55px; height: 55px; background-image: url("../image/hand1.png"); background-position: center; background-size: cover; }
+
+.info .howToplay .gesture li:nth-child(2) div { width: 55px; height: 55px; background-image: url("../image/hand2.png"); background-position: center; background-size: cover; }
+
+.info .howToplay .gesture li:nth-child(3) div { width: 55px; height: 55px; background-image: url("../image/hand3.png"); background-position: center; background-size: cover; }
+
+.info .howToplay .gesture li:nth-child(4) div { width: 55px; height: 55px; background-image: url("../image/hand4.png"); background-position: center; background-size: cover; }
+
+.info .howToplay .gesture li:nth-child(5) div { width: 55px; height: 55px; background-image: url("../image/hand5.png"); background-position: center; background-size: cover; }
+
+.info .howToplay .gesture li p { line-height: 55px; margin-left: 10px; color: #fff; }
+
+/*# sourceMappingURL=play.css.map */

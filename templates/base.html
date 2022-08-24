@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--0821 handcoin/templates -> handcoin/testG/templates 로 이동-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <title>문방구 오락실</title>
+
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}">
+
+    {% load sass_tags %}
+    <link rel="stylesheet" href="{% sass_src 'css/base.scss' %}" type="text/css" />
+    <link rel="stylesheet" href="{% sass_src 'css/play.scss' %}" type="text/css" />
+    <link rel="stylesheet" href="{% sass_src 'css/main.scss' %}" type="text/css" />
+
+    <!-- SWIPER -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="logo_wrap">
+            <div class="logo"> 
+                <a href="{% url 'main' %}" style="text-decoration: none;"><img src="../static/image/logo_3.png" alt=""></a>               
+            </div>
+            <a href="{% url 'main' %}" style="text-decoration: none;"> <h1>문방구 오락실</h1></a>
+        </div>
+    </header>
+
+    <nav>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+        <div class="blue"></div>
+        <div class="white"></div> 
+ 
+    </nav>
+
+    {% block content %} 
+
+    {% endblock %}  
+
+    <footer>
+        <h3>문방구 오락실</h3>
+        <p>02-123-4567 | 02-987-6543</p>
+        <p>서울특별시 마포구 서교동 354-8</p>
+        <p>COPYRIGHT(C) HANDCOIN ALL RIGHTS RESERVED.</p>
+    </footer>
+</body>
+</html>
