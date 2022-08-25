@@ -1,0 +1,9 @@
+CREATE TABLE departments (
+    `INDEX(PK)`        INT          NOT NULL AUTO_INCREMENT,
+    'RANK' INT NOT NULL UNIQUE,
+    `G_NAME`      VARCHAR(25)  NOT NULL UNIQUE,
+    `USER`  VARCHAR(25)      NOT NULL,
+    'SCORE' INT NOT NULL,
+    
+    PRIMARY KEY (RANK)
+);

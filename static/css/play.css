@@ -1,5 +1,7 @@
 @font-face { font-family: "DungGeunMo"; src: url("/static/font/DungGeunMo.woff") format("woff"); }
 
+.play_main { display: flex; }
+
 /* main */
 .gameMachine { width: 670px; border-radius: 10px; background-color: #000b5c; padding: 10px; margin-top: 60px; }
 
@@ -11,7 +13,9 @@
 
 .gameMachine .gameDisplay_wrap .gameDisplay { width: 580px; height: 380px; background-color: #000; }
 
-.gameMachine .gameDisplay_wrap .gameDisplay .start { margin-top: 200px; color: #fff; font-size: 80px; }
+.gameMachine .gameDisplay_wrap .gameDisplay p { line-height: 380px; }
+
+.gameMachine .gameDisplay_wrap .gameDisplay p .start { color: #fff; font-size: 80px; }
 
 .gameMachine .gameBody { display: flex; }
 
@@ -33,7 +37,7 @@
 
 .info .gameInfo { margin-bottom: 20px; }
 
-.info .gameInfo .gameInfo_title { margin-bottom: 10px; color: #ffe602; }
+.info .gameInfo .gameInfo_title { margin-bottom: 20px; color: #ffe602; }
 
 .info .gameInfo .gameInfo { font-size: 13px; line-height: 20px; }
 
@@ -41,9 +45,9 @@
 
 .info .userDisplay { height: 180px; background-color: rgba(176, 176, 176, 0.2); }
 
-.info .howToplay { height: 280px; margin-top: 20px; border-radius: 10px; border: 1px dashed #fff; }
+.info .howToplay { height: 230px; margin-top: 30px; border-radius: 10px; border: 1px dashed #fff; }
 
-.info .howToplay .howToplay_title { color: #ffe602; margin-top: 15px; margin-bottom: 10px; }
+.info .howToplay .howToplay_title { color: #ffe602; margin-top: 20px; margin-bottom: 10px; }
 
 .info .howToplay .gesture { display: flex; flex-wrap: wrap; }
 
@@ -56,8 +60,6 @@
 .info .howToplay .gesture li:nth-child(3) div { width: 55px; height: 55px; background-image: url("../image/hand3.png"); background-position: center; background-size: cover; }
 
 .info .howToplay .gesture li:nth-child(4) div { width: 55px; height: 55px; background-image: url("../image/hand4.png"); background-position: center; background-size: cover; }
-
-.info .howToplay .gesture li:nth-child(5) div { width: 55px; height: 55px; background-image: url("../image/hand5.png"); background-position: center; background-size: cover; }
 
 .info .howToplay .gesture li p { line-height: 55px; margin-left: 10px; color: #fff; }
 

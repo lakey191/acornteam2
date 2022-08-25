@@ -1,11 +1,13 @@
 $machineSize : 670px;
-
+// play_main 추가 & .start 위치 수정 & .info 내부에 있는 클래스 몇개 magin 수정 &.gesture for문 수정
 @font-face {
     font-family: "DungGeunMo";
     src: url("/static/font/DungGeunMo.woff") format('woff');
 }
 
-
+.play_main{
+    display: flex;
+}
 
 /* main */
 .gameMachine {
@@ -39,11 +41,14 @@ $machineSize : 670px;
             width: 580px;
             height: 380px;
             background-color: #000;
-            .start {
-                margin-top: 200px;
-                color: #fff;
-                font-size: 80px;
+            p {
+                line-height: 380px;
+                .start {                    
+                    color: #fff;
+                    font-size: 80px;
+                }
             }
+
         }
     }
     .gameBody {
@@ -107,7 +112,7 @@ $machineSize : 670px;
     .gameInfo {
         margin-bottom: 20px;            
         .gameInfo_title {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: rgb(255, 230, 2);
         }
         .gameInfo {
@@ -123,13 +128,13 @@ $machineSize : 670px;
         background-color: rgba(176, 176, 176, 0.2);
     }
     .howToplay {
-        height: 280px;
-        margin-top: 20px;
+        height: 230px;
+        margin-top: 30px;
         border-radius: 10px;
         border: 1px dashed #fff;
         .howToplay_title {
             color: rgb(255, 230, 2);
-            margin-top: 15px;
+            margin-top: 20px;
             margin-bottom: 10px;
         }
         .gesture {
@@ -139,7 +144,7 @@ $machineSize : 670px;
                 display: flex;
                 margin-top: 15px;
                 margin-left: 30px;
-                @for $i from 1 through 5 {
+                @for $i from 1 through 4 {
                     &:nth-child(#{$i}) div{
                         width: 55px;
                         height: 55px;

@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'handcoin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'todoList',
-        'USER': 'user',
-        'PASSWORD': 'password',
+        'NAME': 'mysql',
+        'USER': 'mysql',
+        'PASSWORD': '0222316412',
         'HOST': 'db',
         'PORT': '3306',
     }

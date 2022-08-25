@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
+<!-- main class 추가 & 제스처 멈춤부분 삭제 -->
 {% block content %}
-<main>
+<main class="play_main">
     <div class="gameMachine">
         <div class="gameTitle">
             <h3>+ + + + + + + {{ games1.title }} + + + + + + +</h3>
@@ -58,10 +58,6 @@
                 <li>
                     <div></div>
                     <p>우</p>
-                </li>
-                <li>
-                    <div></div>
-                    <p>멈춤</p>
                 </li>
             </ul>
         </div>

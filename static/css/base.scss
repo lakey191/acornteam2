@@ -1,5 +1,5 @@
 $machineSize : 670px;
-
+// nev 수정
 @font-face {
     font-family: "DungGeunMo";
     src: url("/static/font/DungGeunMo.woff") format('woff');
@@ -62,9 +62,11 @@ nav {
         margin: auto;
     }
     .white{
+        z-index: 1;
         background-color: rgb(255, 255, 255);
     }
     .blue {
+        z-index: 1;
         background-color: rgb(46, 198, 236);
     }
 }
@@ -74,7 +76,6 @@ main{
     width: 1000px;
     height: 700px;
     margin: auto;
-    display: flex;
     position: relative;
     background-color: rgb(170, 204, 196);
 }

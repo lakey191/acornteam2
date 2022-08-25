@@ -1,6 +1,14 @@
-.swiper-container { width: 920px; height: 700px; margin: auto; overflow: hidden; }
+.game_main .deco_wrap { position: relative; width: 1000px; height: 220px; margin: auto; }
 
-.swiper-container .swiper-slide { margin-top: 220px; }
+.game_main .deco_wrap .deco1 { position: absolute; width: 140px; left: 50px; top: -10px; }
+
+.game_main .deco_wrap .deco2 { position: absolute; width: 150px; left: 250px; top: 30px; }
+
+.game_main .deco_wrap .deco3 { position: absolute; width: 100px; right: 400px; bottom: 20px; }
+
+.game_main .deco_wrap .deco4 { position: absolute; width: 320px; right: 50px; top: -40px; }
+
+.swiper-container { width: 920px; height: 480px; margin: auto; overflow: hidden; }
 
 .swiper-container .swiper-slide .gameMachine_wrap { width: 300px; height: 480px; border-radius: 15px 15px 0 0; background-color: #000b5c; margin: auto; margin-bottom: 0px; position: relative; display: flex; flex-wrap: wrap; }
 
@@ -36,8 +44,8 @@
 
 .swiper-container .swiper-slide .gameMachine_wrap .game_chair_wrap .chair .chair_leg { position: absolute; width: 90px; height: 20px; background-color: #000b5c; border-radius: 10px 10px 0 0; z-index: 1; margin: auto; bottom: 0px; left: 50%; transform: translate(-50%); }
 
-.swiper-prev { width: 30px; height: 30px; border-radius: 50%; background-color: #000b5c; color: #bb0038; font-size: 20px; position: absolute; line-height: 30px; text-align: center; z-index: 1; cursor: pointer; margin-top: 450px; left: 6px; }
+.swiper-prev { width: 30px; height: 30px; border-radius: 50%; background-color: #000b5c; color: #bb0038; font-size: 20px; position: absolute; line-height: 30px; text-align: center; z-index: 1; cursor: pointer; margin-top: -250px; left: 6px; }
 
-.swiper-next { width: 30px; height: 30px; border-radius: 50%; background-color: #000b5c; color: #bb0038; font-size: 20px; position: absolute; line-height: 30px; text-align: center; z-index: 1; cursor: pointer; margin-top: 450px; right: 6px; }
+.swiper-next { width: 30px; height: 30px; border-radius: 50%; background-color: #000b5c; color: #bb0038; font-size: 20px; position: absolute; line-height: 30px; text-align: center; z-index: 1; cursor: pointer; margin-top: -250px; right: 6px; }
 
 /*# sourceMappingURL=main.css.map */

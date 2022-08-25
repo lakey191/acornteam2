@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
-
+<!-- deco 추가 -->
 {% block content %}
 <main class="game_main">
-
+    <div class="deco_wrap">
+        <img src="../../../static/image/deco1.png" alt="" class="deco1">
+        <img src="../../../static/image/deco2.png" alt="" class="deco2">
+        <img src="../../../static/image/deco3.png" alt="" class="deco3">
+        <img src="../../../static/image/deco4.png" alt="" class="deco4">
+    </div>
     <div class="swiper-container">
         <div class="swiper-wrapper">
             {% for i in games%}
